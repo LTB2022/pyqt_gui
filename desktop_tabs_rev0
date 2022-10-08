@@ -1,0 +1,114 @@
+# Initial desktop application for the LTB
+# Tabbed layout
+# The desktop application needs the connection of slots, signals and actions connected to the fields.
+# Created by Connor Sheeran 
+# Entered to github on 2022-10-08
+
+import sys
+
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import (
+    QApplication,
+    QFormLayout,
+    QTabWidget,
+    QLineEdit,
+    QLabel,
+    QPushButton,
+    QWidget,
+)
+
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Little Time Buddy-Setup")
+        self.resize(500, 250)
+        # Create a top-level layout
+        layout = QFormLayout()
+        self.setLayout(layout)
+        # Create the tab widget with two tabs
+        tabs = QTabWidget()
+        tabs.addTab(self.homeTabUI(), 'Home')
+        tabs.addTab(self.networkTabUI(), 'Network')
+        tabs.addTab(self.profile1TabUI(), 'Profile 1')
+        tabs.addTab(self.profile2TabUI(), 'Profile 2')
+        layout.addWidget(tabs)
+
+    def homeTabUI(self):
+        """create the General page UI."""
+        homeTab = QWidget()
+        layout = QFormLayout()
+        layout.setVerticalSpacing(25)
+        layout.addRow(QLabel('Little Time Buddy: Track your time & stay focused'))
+        layout.addRow(QLabel('(  -> Add an image here <-  )'))
+        layout.addRow(QLabel('Total Time for Task 1, Profile 1:  22 hours 13 minutes'))
+        layout.addRow(QLabel('Total Time for Task 2, Profile 1:  13 hours 40 minutes'))
+        layout.addRow(QLabel('Total Time for Task 1, Profile 2:  10 hours 26 minutes'))
+        layout.addRow(QLabel('Total Time for Task 2, Profile 2:  18 hours 2 minutes'))
+        homeTab.setLayout(layout)
+        return homeTab
+
+    def networkTabUI(self):
+        """create the Network page UI."""
+        networkTab = QWidget()
+        layout = QFormLayout()
+        layout.addRow(QLabel('Enter your Network ID and Password'))
+        layout.setVerticalSpacing(25)
+        layout.addRow('Network SSID', QLineEdit())
+        layout.addRow('Password', QLineEdit())
+        # Create a save button that connects to createNetFile method
+        self.networkSave = layout.addRow(QPushButton('Save'))
+        #self.networkSave.connect(self.createNetFile())
+        networkTab.setLayout(layout)
+        return networkTab
+
+    def profile1TabUI(self):
+        """create the General page UI."""
+        profile1Tab = QWidget()
+        layout = QFormLayout()
+        layout.addRow(QLabel('Name Profile 1 and related tasks'))
+        layout.setVerticalSpacing(50)
+        layout.addRow('Profile 1', QLineEdit())
+        layout.addRow('Task 1', QLineEdit())
+        layout.addRow('Task 2', QLineEdit())
+        layout.addRow(QPushButton('Save'))
+        profile1Tab.setLayout(layout)
+        return profile1Tab
+
+    def profile2TabUI(self):
+        """create the General page UI."""
+        profile2Tab = QWidget()
+        layout = QFormLayout()
+        layout.addRow(QLabel('Name Profile 2 and related tasks'))
+        layout.setVerticalSpacing(50)
+        nameProf2 = layout.addRow('Profile 2', QLineEdit())
+        p2t1_name = layout.addRow('Task 1', QLineEdit())
+        p2t2_name = layout.addRow('Task 2', QLineEdit())
+        layout.addRow(QPushButton('Save'))
+        profile2Tab.setLayout(layout)
+        return profile2Tab
+
+    def createNetFile(self):
+        # with open ("filepath/ltbNetwork.csv") as f:
+            #f.write( write relevant nework info to csv )
+        print("The network id is: ", )
+        pass
+
+
+    def createProf1File(self):
+        # with open ("filepath/prof1.csv") as f:
+            #f.write( write relevant nework info to csv )
+        pass
+
+
+    def createProf2File(self):
+        # with open ("filepath/prof2.csv") as f:
+            #f.write( write relevant nework info to csv )
+        pass
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
